@@ -35,6 +35,12 @@ function App() {
   let [daily, setDaily] = useState(false);
   //Store the quantity of Days
   let [quantDays, setQuantDays] = useState(1);
+  //Store temperature
+  let [temperature, setTemperature] = useState(false);
+  //Store precipitation
+  let [precipitation, setPrecipitation] = useState(false);
+  //Store wind
+  let [wind, setWind] = useState(false);
 
   //Function to handle city change
   const handleCityChange = (event) => {
@@ -63,6 +69,23 @@ function App() {
     setQuantDays(event.target.value);
   }
 
+  //Function to handle temperature change
+  const handleTemperatureChange = (event) => {
+    setTemperature(event.target.checked);
+  }
+
+  //Function to handle precipitation change
+  const handlePrecipitationChange = (event) => {
+    setPrecipitation(event.target.checked);
+  }
+
+  //Function to handle wind change
+  const handleWindChange = (event) => {
+    setWind(event.target.checked);
+  }
+
+  
+
   return (
     <div>
       <h1>Weather App</h1>
@@ -75,44 +98,80 @@ function App() {
           ))}
       </select>
 
-      <div id="hourly-checbox" className="label-container">
-        {/* Checkbox to select hourly data */}
-        <input
-            type="checkbox"
-            checked={hourly}
-            onChange={handleHourlyChange}
-        />
-        <label>Hourly</label>
+      <div id="daily-hourly_section">
+        <div id="hourly-checbox" className="label-container">
+          {/* Checkbox to select hourly data */}
+          <input
+              type="checkbox"
+              id="hourly"
+              checked={hourly}
+              onChange={handleHourlyChange}
+          />
+          <label htmlFor="hourly">Hourly</label>
 
-        {/* Input of the quantity of hours */}
-        <label id="label-hours">Hours:</label>
-        <input
-            type="number"
-            value={quantHours}
-            onChange={handleQuantHoursChange}
-            min="1"
-            max="24"
-        />
+          {/* Input of the quantity of hours */}
+          <label id="label-hours">Hours:</label>
+          <input
+              type="number"
+              value={quantHours}
+              onChange={handleQuantHoursChange}
+              min="1"
+              max="24"
+          />
+        </div>
+
+        <div id="daily-checkbox" className="label-container">
+          {/* Checkbox to select daily data */}
+            <input
+              type="checkbox"
+              id="daily"
+              checked={daily}
+              onChange={handleDailyChange}
+              />
+            <label htmlFor="daily">Daily</label>
+
+          {/* Input of the quantity of days */}
+          <label id="label-days">Days:</label>
+          <input
+              type="number"
+              value={quantDays}
+              onChange={handleQuantDaysChange}
+              min="1"
+              max="7"
+          />
+        </div>
       </div>
-
-      <div id="daily-checkbox" className="label-container">
-        {/* Checkbox to select daily data */}
+      <div id="parameters-section">
+        
+        <div id="temperature-section">
           <input
             type="checkbox"
-            checked={daily}
-            onChange={handleDailyChange}
+            id="temperature"
+            checked={temperature}
+            onChange={handleTemperatureChange}
             />
-          <label>Daily</label>
+          <label htmlFor="temperature">Temperature</label>
+        </div>
 
-        {/* Input of the quantity of days */}
-        <label id="label-days">Days:</label>
-        <input
-            type="number"
-            value={quantDays}
-            onChange={handleQuantDaysChange}
-            min="1"
-            max="7"
-        />
+        <div id="precipitation-section">
+          <input
+            type="checkbox"
+            id="precipitation"
+            checked={precipitation}
+            onChange={handlePrecipitationChange}
+          />
+          <label htmlFor="precipitation">Precipitation</label>
+        </div>
+
+        <div id="wind-section">
+          <input
+            type="checkbox"
+            id="wind"
+            checked={wind}
+            onChange={handleWindChange}
+          />
+          <label htmlFor="wind">Wind</label>
+        </div>
       </div>
 
     </div>

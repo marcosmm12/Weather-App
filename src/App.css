@@ -45,6 +45,10 @@
   display: flex;
   align-items: center;
   margin-bottom: 1em;
+  margin-top: 1em;
+  margin-left: 2em;
+  margin-right: 2em;
+  justify-content: center;
 }
 
 .label-container input[type="number"] {
@@ -69,4 +73,29 @@
 
 #label-days {
   margin-left: 1.8em;
+}
+
+#hourly-checkbox label {
+  margin-left: 1.8em;
+}
+
+#daily-hourly_section {
+  display: flex;
+  justify-content: center;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+#parameters-section {
+  display: flex;  /* Display elements horizontally except if there isn't enough space */
+  margin-right: 1em;
+  margin-left: 1em;
+  justify-content: center;
+}
+
+#temperature-section, #precipitation-section, #wind-section {
+  display: flex;
+  justify-content: center;
+  margin-right: 1em;
+  margin-left: 1em;
 }
