@@ -40,3 +40,33 @@
 .read-the-docs {
   color: #888;
 }
+
+.label-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.label-container input[type="number"] {
+  margin-left: 0.5em;
+  width: 50px;
+}
+
+#daily-checkbox {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+}
+
+#daily-checkbox input[type="number"] {
+  margin-left: 0.5em;
+  width: 50px;
+}
+
+#label-hours, #label-days {
+  margin-left: 1em;
+}
+
+#label-days {
+  margin-left: 1.8em;
+}

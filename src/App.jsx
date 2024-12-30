@@ -25,26 +25,96 @@ const cities = {
   "Toledo": { Lat: 39.8617, Lon: -4.0267}};
 
 function App() {
-  //Logic to choose a city
+  //Store the current city
   let [city, setCity] = useState(); //State to store the city --> city is the variable, setCity is the function to change the value and the default value is null
+  //Store Hourly
+  let [hourly, setHourly] = useState(false);
+  //Store the quantity of hours
+  let [quantHours, setQuantHours] = useState(1);
+  //Store Daily
+  let [daily, setDaily] = useState(false);
+  //Store the quantity of Days
+  let [quantDays, setQuantDays] = useState(1);
 
   //Function to handle city change
-  let handleCityChange = (event) => {
+  const handleCityChange = (event) => {
     setCity(event.target.value);  //Change the value of the city to the value of the selected option
                                   //setCity is a function of the useState hook
                                   //event.target is the select, the element that triggered the event
+  }
+
+  //Function to handle hourly change
+  const handleHourlyChange = (event) => {
+    setHourly(event.target.checked);
+  }
+
+  //Function to handle the quantity of hours change
+  const handleQuantHoursChange = (event) => {
+    setQuantHours(event.target.value);
+  }
+
+  //Function to handle daily change
+  const handleDailyChange = (event) => {
+    setDaily(event.target.checked);
+  }
+
+  //Function to handle the quantity of Days change
+  const handleQuantDaysChange = (event) => {
+    setQuantDays(event.target.value);
   }
 
   return (
     <div>
       <h1>Weather App</h1>
       <label htmlFor="city-select">Choose a city:</label>   {/* Label for the select --> htmlFor is to associate the label to the select ("Desplegable") using the id of the select */}
+      
       <select id="city-select" value={city} onChange={handleCityChange}>  {/* Add your select element here --> value is the default value (current city for default), onChange is the function to change the value when the user selects something */}
-      <option value="">--Please choose a city--</option>   {/* This is a row in the select with no value that asks you to choose a city */}
-      {Object.entries(cities).map(([cityName, coords]) =>(  //Iterate over the elements of the cities object (the element of the current iteration is cityName)
-        <option key={cityName} value={cityName}>{cityName}</option>   // This is a row in the select with the value of the cityName, the text of the cityName and the key of the cityName to identify row
-      ))}
+          <option value="">--Please choose a city--</option>   {/* This is a row in the select with no value that asks you to choose a city */}
+          {Object.entries(cities).map(([cityName, coords]) =>(  //Iterate over the elements of the cities object (the element of the current iteration is cityName)
+            <option key={cityName} value={cityName}>{cityName}</option>   // This is a row in the select with the value of the cityName, the text of the cityName and the key of the cityName to identify row
+          ))}
       </select>
+
+      <div id="hourly-checbox" className="label-container">
+        {/* Checkbox to select hourly data */}
+        <input
+            type="checkbox"
+            checked={hourly}
+            onChange={handleHourlyChange}
+        />
+        <label>Hourly</label>
+
+        {/* Input of the quantity of hours */}
+        <label id="label-hours">Hours:</label>
+        <input
+            type="number"
+            value={quantHours}
+            onChange={handleQuantHoursChange}
+            min="1"
+            max="24"
+        />
+      </div>
+
+      <div id="daily-checkbox" className="label-container">
+        {/* Checkbox to select daily data */}
+          <input
+            type="checkbox"
+            checked={daily}
+            onChange={handleDailyChange}
+            />
+          <label>Daily</label>
+
+        {/* Input of the quantity of days */}
+        <label id="label-days">Days:</label>
+        <input
+            type="number"
+            value={quantDays}
+            onChange={handleQuantDaysChange}
+            min="1"
+            max="7"
+        />
+      </div>
+
     </div>
   )
 
@@ -54,7 +124,7 @@ function App() {
 
 export default App
 
-{/*
+/*
 function App() {
   const [count, setCount] = useState(0)
 
@@ -83,4 +153,4 @@ function App() {
     </>
   )
 }
-  */}
+  */
