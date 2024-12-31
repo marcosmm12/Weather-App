@@ -49,71 +49,44 @@ function App() {
     setCity(event.target.value);  //Change the value of the city to the value of the selected option
                                   //setCity is a function of the useState hook
                                   //event.target is the select, the element that triggered the event
-    updateData();  //Call the function to update the data
   }
 
   //Function to handle hourly change
   const handleHourlyChange = (event) => {
     setHourly(event.target.checked);
-    updateData();  //Call the function to update the data
   }
 
   //Function to handle the quantity of hours change
   const handleQuantHoursChange = (event) => {
-    setQuantHours(event.target.value);
-    updateData();  //Call the function to update the data
+    setQuantHours(Number(event.target.value));
   }
 
   //Function to handle daily change
   const handleDailyChange = (event) => {
     setDaily(event.target.checked);
-    updateData();  //Call the function to update the data
   }
 
   //Function to handle the quantity of Days change
   const handleQuantDaysChange = (event) => {
-    setQuantDays(event.target.value);
-    updateData();  //Call the function to update the data
+    setQuantDays(Number(event.target.value));
   }
 
   //Function to handle temperature change
   const handleTemperatureChange = (event) => {
     setTemperature(event.target.checked);
-    updateData();  //Call the function to update the data
   }
 
   //Function to handle precipitation change
   const handlePrecipitationChange = (event) => {
     setPrecipitation(event.target.checked);
-    updateData();  //Call the function to update the data
   }
 
   //Function to handle wind change
   const handleWindChange = (event) => {
     setWind(event.target.checked);
-    updateData();  //Call the function to update the data
   }
 
-  //Function to get the temperature data from the API
-  const getTemperatureData = async () => {
-    //If not hourly or daily selected, return
-    if (!hourly && !daily) return;
-
-    //Obtain the coordinates of the selected city, return if none is selected
-    if (city === null) return;
-    const {lat, lon} = cities[city];
-
-    //Get the temperature data from the API
-    let response1;
-    if (hourly) response1 = await get_temperature(lat, lon, "HOURLY", quantHours);
-
-    let response2;
-    if (daily) response2 = await get_temperature(lat, lon, "DAILY", quantDays);
-
-    return {response1, response2};  
-  }
-
-  //Function to get the data from the API
+  //Function to get the data from the API and store it in the variable weatherData
   const getData = async () => {
     //Check if hourly data is wanted
     let result;
@@ -158,7 +131,7 @@ function App() {
   //When one of the parameters changes, update the data
   useEffect(() => {
     getData();
-  }, [hourly, daily, temperature, precipitation, wind, quantHours, quantDays]); 
+  }, [city, hourly, daily, temperature, precipitation, wind, quantHours, quantDays]); 
 
   return (
     <div>
