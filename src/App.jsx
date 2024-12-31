@@ -27,64 +27,138 @@ const cities = {
 function App() {
   //Store the current city
   let [city, setCity] = useState(); //State to store the city --> city is the variable, setCity is the function to change the value and the default value is null
-  //Store Hourly
+  //Store Hourly --> true if hourly is selected, false otherwise
   let [hourly, setHourly] = useState(false);
   //Store the quantity of hours
   let [quantHours, setQuantHours] = useState(1);
-  //Store Daily
+  //Store Daily --> true if daily is selected, false otherwise
   let [daily, setDaily] = useState(false);
   //Store the quantity of Days
   let [quantDays, setQuantDays] = useState(1);
-  //Store temperature
+  //Store temperature --> true if temperature is selected, false otherwise
   let [temperature, setTemperature] = useState(false);
-  //Store precipitation
+  //Store precipitation --> true if precipitation is selected, false otherwise
   let [precipitation, setPrecipitation] = useState(false);
-  //Store wind
+  //Store wind --> true if wind is selected, false otherwise
   let [wind, setWind] = useState(false);
+  //Store the weather data
+  let [weatherData, setWeatherData] = useState(null);
 
   //Function to handle city change
   const handleCityChange = (event) => {
     setCity(event.target.value);  //Change the value of the city to the value of the selected option
                                   //setCity is a function of the useState hook
                                   //event.target is the select, the element that triggered the event
+    updateData();  //Call the function to update the data
   }
 
   //Function to handle hourly change
   const handleHourlyChange = (event) => {
     setHourly(event.target.checked);
+    updateData();  //Call the function to update the data
   }
 
   //Function to handle the quantity of hours change
   const handleQuantHoursChange = (event) => {
     setQuantHours(event.target.value);
+    updateData();  //Call the function to update the data
   }
 
   //Function to handle daily change
   const handleDailyChange = (event) => {
     setDaily(event.target.checked);
+    updateData();  //Call the function to update the data
   }
 
   //Function to handle the quantity of Days change
   const handleQuantDaysChange = (event) => {
     setQuantDays(event.target.value);
+    updateData();  //Call the function to update the data
   }
 
   //Function to handle temperature change
   const handleTemperatureChange = (event) => {
     setTemperature(event.target.checked);
+    updateData();  //Call the function to update the data
   }
 
   //Function to handle precipitation change
   const handlePrecipitationChange = (event) => {
     setPrecipitation(event.target.checked);
+    updateData();  //Call the function to update the data
   }
 
   //Function to handle wind change
   const handleWindChange = (event) => {
     setWind(event.target.checked);
+    updateData();  //Call the function to update the data
   }
 
-  
+  //Function to get the temperature data from the API
+  const getTemperatureData = async () => {
+    //If not hourly or daily selected, return
+    if (!hourly && !daily) return;
+
+    //Obtain the coordinates of the selected city, return if none is selected
+    if (city === null) return;
+    const {lat, lon} = cities[city];
+
+    //Get the temperature data from the API
+    let response1;
+    if (hourly) response1 = await get_temperature(lat, lon, "HOURLY", quantHours);
+
+    let response2;
+    if (daily) response2 = await get_temperature(lat, lon, "DAILY", quantDays);
+
+    return {response1, response2};  
+  }
+
+  //Function to get the data from the API
+  const getData = async () => {
+    //Check if hourly data is wanted
+    let result;
+    if (hourly) {
+      if (temperature) {
+        const responseTemp = await get_temperature(cities[city].Lat, cities[city].Lon, "HOURLY", quantHours);
+        result.hourlyTemp = responseTemp;
+      }
+      else result.hourlyTemp = null;
+      if (precipitation) {
+        const responsePrecip = await get_precipitation(cities[city].Lat, cities[city].Lon, "HOURLY", quantHours);
+        result.hourlyPrecip = responsePrecip;
+      }
+      else result.hourlyPrecip = null;
+      if (wind) {
+        const responseWind = await get_wind(cities[city].Lat, cities[city].Lon, "HOURLY", quantHours);
+        result.hourlyWind  = responseWind;
+      }
+      else result.hourlyWind = null;
+    }
+    if (daily) {
+      if (temperature) {
+        const responseTemp = await get_temperature(cities[city].Lat, cities[city].Lon, "DAILY", quantDays);
+        result.dailyTemp = responseTemp;
+      }
+      else result.dailyTemp = null;
+      if (precipitation) {
+        const responsePrecip = await get_precipitation(cities[city].Lat, cities[city].Lon, "DAILY", quantDays);
+        result.dailyPrecip = responsePrecip;
+      }
+      else result.dailyPrecip = null;
+      if (wind) {
+        const responseWind = await get_wind(cities[city].Lat, cities[city].Lon, "DAILY", quantDays);
+        result.dailyWind = responseWind;
+      }
+      else result.dailyWind = null;
+    }
+    //Store the result
+    setWeatherData(result);
+  }
+
+  //When one of the parameters changes, update the data
+  useEffect(() => {
+    getData();
+  }, [hourly, daily, temperature, precipitation, wind, quantHours, quantDays]); 
 
   return (
     <div>
