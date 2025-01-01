@@ -126,3 +126,7 @@
 #get-data:hover {
   background-color: rgb(94, 92, 92);
 }
+
+#get-data:focus {
+  outline: none; /* Remove the focus outline for the button */ 
+}

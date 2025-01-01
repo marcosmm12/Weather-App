@@ -216,7 +216,9 @@ function App() {
 
       <div id="data-section">
         <h2> Data</h2>
-        {weatherData ? (
+        {
+        city === undefined || city === "" ? <p>Please select a city</p> :
+        weatherData ? (
           <div>
             {weatherData.hourlyTemp && <p>Hourly Temperature: {JSON.stringify(weatherData.hourlyTemp)}</p>}
             {weatherData.hourlyPrecip && <p>Hourly Precpitation: {JSON.stringify(weatherData.hourlyPrecip)}</p>}
