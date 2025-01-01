@@ -10,7 +10,7 @@ const cities = {
   "Bilbao": { Lat: 43.2629, Lon: -2.9369},
   "Palma": { Lat: 39.5665, Lon: 2.651},
   "Santander": { Lat: 43.4622, Lon: -3.8037},
-  "Las Palma": {Lat: 28.0936, Lon: -15.4199},
+  "Las Palmas": {Lat: 28.0936, Lon: -15.4199},
   "Granada": { Lat: 37.1887, Lon: -3.6025},
   "Murcia": { Lat: 37.9887, Lon: -1.13},
   "Oviedo": { Lat: 43.3666, Lon: -5.84},
@@ -88,50 +88,41 @@ function App() {
 
   //Function to get the data from the API and store it in the variable weatherData
   const getData = async () => {
+    //Imprimir por terminal que entramos aqui
+    console.log("Entro en getData");
     //Check if hourly data is wanted
-    let result;
-    if (hourly) {
+    let result = {};
+    if (hourly && city) {
       if (temperature) {
         const responseTemp = await get_temperature(cities[city].Lat, cities[city].Lon, "HOURLY", quantHours);
         result.hourlyTemp = responseTemp;
       }
-      else result.hourlyTemp = null;
       if (precipitation) {
         const responsePrecip = await get_precipitation(cities[city].Lat, cities[city].Lon, "HOURLY", quantHours);
         result.hourlyPrecip = responsePrecip;
       }
-      else result.hourlyPrecip = null;
       if (wind) {
         const responseWind = await get_wind(cities[city].Lat, cities[city].Lon, "HOURLY", quantHours);
         result.hourlyWind  = responseWind;
       }
-      else result.hourlyWind = null;
     }
-    if (daily) {
+    if (daily && city) {
       if (temperature) {
         const responseTemp = await get_temperature(cities[city].Lat, cities[city].Lon, "DAILY", quantDays);
         result.dailyTemp = responseTemp;
       }
-      else result.dailyTemp = null;
       if (precipitation) {
         const responsePrecip = await get_precipitation(cities[city].Lat, cities[city].Lon, "DAILY", quantDays);
         result.dailyPrecip = responsePrecip;
       }
-      else result.dailyPrecip = null;
       if (wind) {
         const responseWind = await get_wind(cities[city].Lat, cities[city].Lon, "DAILY", quantDays);
         result.dailyWind = responseWind;
       }
-      else result.dailyWind = null;
     }
     //Store the result
     setWeatherData(result);
   }
-
-  //When one of the parameters changes, update the data
-  useEffect(() => {
-    getData();
-  }, [city, hourly, daily, temperature, precipitation, wind, quantHours, quantDays]); 
 
   return (
     <div>
@@ -219,6 +210,21 @@ function App() {
           />
           <label htmlFor="wind">Wind</label>
         </div>
+      </div>
+
+      <button id="get-data" onClick={getData}>Get Weather Data</button>
+
+      <div id="data-section">
+        <h2> Data</h2>
+        {weatherData ? (
+          <div>
+            {weatherData.hourlyTemp && <p>Hourly Temperature: {JSON.stringify(weatherData.hourlyTemp)}</p>}
+            {weatherData.hourlyPrecip && <p>Hourly Precpitation: {JSON.stringify(weatherData.hourlyPrecip)}</p>}
+            {weatherData.hourlyWind && <p>Hourly Wind: {JSON.stringify(weatherData.hourlyWind)}</p>}
+            {weatherData.dailyTemp && <p>Daily Temperature: {JSON.stringify(weatherData.dailyTemp)}</p>}
+            {weatherData.dailyPrecip && <p>Daily Precipitation: {JSON.stringify(weatherData.dailyPrecip)}</p>}
+            {weatherData.dailyWind && <p>Daily Wind: {JSON.stringify(weatherData.dailyWind)}</p>}
+        </div>) : <p>No data available</p>}
       </div>
 
     </div>
