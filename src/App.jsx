@@ -43,6 +43,8 @@ function App() {
   let [wind, setWind] = useState(false);
   //Store the weather data
   let [weatherData, setWeatherData] = useState(null);
+  //Global variable for the keys of the components
+  let index = 0;
 
   //Function to handle city change
   const handleCityChange = (event) => {
@@ -122,6 +124,109 @@ function App() {
     }
     //Store the result
     setWeatherData(result);
+  }
+
+  const showData = () => {
+    let date_shown = false;    
+    
+    return (
+      <div id="data-section">
+
+      {hourly && temperature && weatherData && weatherData.hourlyTemp ? (
+        <div id="temperature-section">
+          {/* Put the dates of all hours */}
+          <div id="dates">
+            {weatherData.hourlyTemp.hourly.time.map((date) => (
+              <label key={`temp-date-${index++}`} id="label-date">{date}</label>
+            ))}
+            {date_shown = true}
+          </div>
+          {/* Put temperatures of all hours */}
+          <div id="temperatures">
+          {weatherData.hourlyTemp.hourly.apparent_temperature.map((temp) => (
+            <label key={`temp-${index++}`} id="label-temp">{temp} ºC</label>
+          ))}
+          </div>
+        </div>)
+        : <></>}
+
+      {hourly && precipitation && weatherData && weatherData.hourlyPrecip ? (
+        <div id="precipitation-section">
+          {/* If not, put the dates of all hours */}
+          {!date_shown ? (
+            <div id="dates">
+              {weatherData.hourlyPrecip.hourly.time.map((date) => (
+                <label key={`precip-date-${index++}`} id="label-date">{date}</label>
+              ))}
+              {date_shown = true}
+            </div>) 
+          : <>/</>}
+          {/* Put cloud cover of all hours */}
+          <div id="cloud-cover">
+            {weatherData.hourlyPrecip.hourly.cloud_cover.map((clouds) => (
+              <label key={`precip-clouds-${index++}`} id="label-clouds">{clouds}%</label>
+            ))}
+          </div>
+          {/* Put precipitation of all hours */}
+          <div id="precipitations">
+            {weatherData.hourlyPrecip.hourly.precipitation.map((precip) =>(
+              <label key={`precip-${index++}`} id="label-precip">{precip} mm</label>
+            ))}
+          </div>
+          {/* Put the precipitation probability of all hours */}
+          <div id="precipitation-prob">
+            {weatherData.hourlyPrecip.hourly.precipitation_probability.map((prec_prob) => (
+              <label key={`precip-prob-${index++}`} id="label-precip-prob">{prec_prob}%</label>
+            ))}
+          </div>
+          {/* Put the rain of all hours */}
+          <div id="rain">
+            {weatherData.hourlyPrecip.hourly.rain.map((rain) => (
+              <label key={`rain-${index++}`} id="label-rain">{rain} mm</label>
+            ))}
+          </div>
+          {/* Put the snowfall of all hours */}
+          <div id="snowfall">
+            {weatherData.hourlyPrecip.hourly.snowfall.map((snowfall) => (
+              <label key={`snowfall-${index++}`} id="label-snowfall">{snowfall} cm</label>
+            ))}
+          </div>
+          {/* Put the snow depth of all hours */}
+          <div id="snow-depth">
+            {weatherData.hourlyPrecip.hourly.snow_depth.map((snow_depth) => (
+              <label key={`snow-depth-${index++}`} id="label-snow-depth">{snow_depth} m</label>
+            ))}
+          </div>
+        </div>)
+      : <></>}
+      
+      {hourly && wind && weatherData && weatherData.hourlyWind ? (
+        <div>
+          {/* If not, put the dates of all hours */}
+          {!date_shown ? (
+            <div id="dates">
+              {weatherData.hourlyWind.hourly.time.map((date) => (
+                <label key={`wind-date-${index++}`} id="label-date">{date}</label>
+              ))}
+              {date_shown = true}
+            </div>
+          ) : <></>}
+          {/* Wind speed at 10m of altitude of all hours */}
+          <div id="wind-speed-10m">
+            {weatherData.hourlyWind.hourly.wind_speed_10m.map((wind) => (
+              <label key={`wind-10m-${index++}`} id="label-wind-speed-10m">{wind} km/h</label>
+            ))}
+          </div>         
+          {/* Wind speed at 120m of altitude of all hours */}
+          <div id="wind-speed-120m">
+            {weatherData.hourlyWind.hourly.wind_speed_120m.map((wind) => (
+              <label key={`wind-120m-${index++}`} id="label-wind-speed-120m">{wind} km/h</label>
+            ))}
+          </div>          
+        </div>
+      ) : <></>}
+      </div>
+    );
   }
 
   return (
@@ -220,9 +325,10 @@ function App() {
         city === undefined || city === "" ? <p>Please select a city</p> :
         weatherData ? (
           <div>
-            {weatherData.hourlyTemp && <p>Hourly Temperature: {JSON.stringify(weatherData.hourlyTemp)}</p>}
-            {weatherData.hourlyPrecip && <p>Hourly Precpitation: {JSON.stringify(weatherData.hourlyPrecip)}</p>}
-            {weatherData.hourlyWind && <p>Hourly Wind: {JSON.stringify(weatherData.hourlyWind)}</p>}
+            {hourly && weatherData ? showData(): <></>}
+            {/*{weatherData.hourlyTemp && <p>Hourly Temperature: {JSON.stringify(weatherData.hourlyTemp)}</p>}
+            {weatherData.hourlyPrecip && <p>Hourly Precipitation: {JSON.stringify(weatherData.hourlyPrecip)}</p>}
+            {weatherData.hourlyWind && <p>Hourly Wind: {JSON.stringify(weatherData.hourlyWind)}</p>} */}
             {weatherData.dailyTemp && <p>Daily Temperature: {JSON.stringify(weatherData.dailyTemp)}</p>}
             {weatherData.dailyPrecip && <p>Daily Precipitation: {JSON.stringify(weatherData.dailyPrecip)}</p>}
             {weatherData.dailyWind && <p>Daily Wind: {JSON.stringify(weatherData.dailyWind)}</p>}
