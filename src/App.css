@@ -1,5 +1,4 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -130,3 +129,92 @@
 #get-data:focus {
   outline: none; /* Remove the focus outline for the button */ 
 }
+
+#data-section {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#hourly-section, #daily-section {
+  /* Display elements in a grid of 3 columns */
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5em; /* Optional: space between grid items */
+  width: 100%; 
+  overflow-x: auto; /* Enable horizontal scrolling */
+  justify-content: center;
+  align-items: center;
+}
+
+#hourly-section::-webkit-scrollbar, #daily-section::-webkit-scrollbar {
+  height: 10px; /* Height of the scrollbar */
+}
+
+#hourly-section::-webkit-scrollbar-thumb, #daily-section::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.5) ; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+#h-temperature-section, #h-precipitation-section, #h-wind-section, #d-temperature-section, #d-precipitation-section, #d-wind-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* Avoid creating new lines when there isn't enough space */
+  align-items: flex-start;
+  justify-content: center;
+  /* Add some space between the sections */
+  margin-right: 1em;
+  margin-left: 1em;
+  /* Add some space between elements of each section */
+  gap: 1em;
+  min-width: 1300px;
+  max-width: 1300px;
+}
+
+#h-precipitation-section {
+  min-width: 1050px;
+  max-width: 1050px;
+}
+
+#d-precipitation-section {
+  min-width: 1300px;
+  max-width: 1300px;
+}
+
+#d-wind-section {
+  min-width: 500px;
+  max-width: 500px;
+}
+
+#h-dates, #h-temperatures, #h-cloud-cover, #h-precipitations, #h-precipitation-prob, #h-rain, #h-snowfall, #h-snow-depth,
+#h-wind-speed-10m, #h-wind-speed-120m, #d-dates, #d-min-temperature, #d-max-temperature, #d-precipitation-sum, #d-rain-sum, 
+#d-snowfall-sum, #d-precipitation-hours, #d-precipitation-prob-mean, #d-wind-speed-10m {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #h-dates label, #h-temperatures label, #h-cloud-cover label, #h-precipitations label, #h-precipitation-prob label, #h-rain label, #h-snowfall label, #h-snow-depth label,
+  #h-wind-speed-10m label, #h-wind-speed-120m label, #d-dates label, #d-min-temperature label, #d-max-temperature label, #d-precipitation-sum label, #d-rain-sum label, 
+  #d-snowfall-sum label, #d-precipitation-hours label, #d-precipitation-prob-mean label, #d-wind-speed-10m label {
+    /* Edit the font of the labels */
+    color: black;
+    font-weight: 250;
+    font-size: 1em;
+    /* Separate the labels between them */
+    margin: 5px 10px; 
+    /*Edit the borders of the labels */
+    border-radius: 8px;
+    border: 1px solid transparent;
+    /* Edit the background color of the labels */
+    background-color: rgba(211, 211, 211, 0.61);
+    /* Edit the size of the labels */
+    width: 230px;
+    height: 40px;
+    /* Include the padding and border in the element's total width and height */
+    box-sizing: border-box;
+    /* Center the content of the labels */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
