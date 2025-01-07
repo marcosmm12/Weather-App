@@ -159,24 +159,6 @@
   flex: 0 0 auto;
 }
 
-/*
-#h-precipitation-section {
-  min-width: 1050px;
-  max-width: 1050px;
-}
-
-#d-precipitation-section {
-  min-width: 1300px;
-  max-width: 1300px;
-}
-
-#d-wind-section {
-  min-width: 500px;
-  max-width: 500px;
-}
-
-*/
-
 #h-dates, #h-temperatures, #h-cloud-cover, #h-precipitations, #h-precipitation-prob, #h-rain, #h-snowfall, #h-snow-depth,
 #h-wind-speed-10m, #h-wind-speed-120m, #d-dates, #d-min-temperature, #d-max-temperature, #d-precipitation-sum, #d-rain-sum, 
 #d-snowfall-sum, #d-precipitation-hours, #d-precipitation-prob-mean, #d-wind-speed-10m {
