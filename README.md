@@ -5,7 +5,7 @@ This is an app I have developed myself to learn how REST APIs work. I wanted to 
 ## How it works
 1. Choose a city from those availables in the select.
 2. Select if you want information of different hours, differents days, or both.
-3. Select the quantity of hours or/and days that you want to get information of:
+3. Select the quantity of hours and/or days that you want to get information of:
    - You can choose between 1 and 24 hours.
    - You can choose between 1 and 7 days.
    - NOTE*: 1 hour/day corresponds to the current hour/day. If you select a quantity higher than 1, you are going to get   information about the current hour/day and the following ones.
