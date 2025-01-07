@@ -1,6 +1,6 @@
 # Weather App
 
-This is an app I have developed myself to learn how REST APIs work. I wanted to have a basic understanding of them, so I select [Open-Meteo API](https://open-meteo.com/en/docs) and I use it to make requests to the API to get information about the weather in different locations. Additionally, I manage this information to show it in different elements and not as a simple string. It's not the best design, but it's a starting point as before this project I didn't know anything about React. 
+This is an app I have developed myself to learn how REST APIs work. I wanted to have a basic understanding of them, so I select [Open-Meteo API](https://open-meteo.com/en/docs) and I use it to make requests to the API to get information about the weather in different locations. Additionally, I manage this information to show it in different elements and not as a simple string. It's not the best design, but it's a starting point as before this project I didn't know anything about React. I know that I could have used a language like C++ or Java and do a simple app printing the results in the console, but I considered a better option a new language for me as it was going to allow me to learn how REST APIs work and basic things about a new language at the same time. 
 
 ## How it works
 1. Choose a city from those availables in the select.
