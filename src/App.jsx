@@ -256,6 +256,7 @@ function App() {
                 {weatherData.dailyTemp.daily.time.map((dates) => (
                   <label key={`temp-date-${index++}`} id="label-date">{dates}</label>
                 ))}
+                {date_shown = true}
               </div>
               {/* Put the min temperature of all days */}
               <div id="d-min-temperature">
@@ -333,6 +334,7 @@ function App() {
                   {weatherData.dailyWind.daily.time.map((date) => (
                     <label key ={`wind-date-${index++}`} id="label-date">{date}</label>
                   ))}
+                  {date_shown = true}
                 </div>
               ) : <></>}
               {/* Show the wind speed at 10m of altitude of all the days */}

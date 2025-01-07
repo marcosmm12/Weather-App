@@ -1,7 +1,9 @@
 #root {
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 .logo {
@@ -24,16 +26,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
 }
 
 .read-the-docs {
@@ -130,22 +122,16 @@
   outline: none; /* Remove the focus outline for the button */ 
 }
 
-#data-section {
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 #hourly-section, #daily-section {
   /* Display elements in a grid of 3 columns */
   display: flex;
   flex-wrap: nowrap;
   gap: 0.5em; /* Optional: space between grid items */
-  width: 100%; 
+  width: 100%;
   overflow-x: auto; /* Enable horizontal scrolling */
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 100%;
 }
 
 #hourly-section::-webkit-scrollbar, #daily-section::-webkit-scrollbar {
@@ -162,16 +148,18 @@
   flex-direction: row;
   flex-wrap: nowrap; /* Avoid creating new lines when there isn't enough space */
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   /* Add some space between the sections */
   margin-right: 1em;
   margin-left: 1em;
   /* Add some space between elements of each section */
-  gap: 1em;
-  min-width: 1300px;
-  max-width: 1300px;
+  gap: 0.5em;
+  /* Minimum size of each section 300px. It can not grow or shrink and it will be as big as it has to show all the elements */
+  min-width: 300px;
+  flex: 0 0 auto;
 }
 
+/*
 #h-precipitation-section {
   min-width: 1050px;
   max-width: 1050px;
@@ -187,11 +175,14 @@
   max-width: 500px;
 }
 
+*/
+
 #h-dates, #h-temperatures, #h-cloud-cover, #h-precipitations, #h-precipitation-prob, #h-rain, #h-snowfall, #h-snow-depth,
 #h-wind-speed-10m, #h-wind-speed-120m, #d-dates, #d-min-temperature, #d-max-temperature, #d-precipitation-sum, #d-rain-sum, 
 #d-snowfall-sum, #d-precipitation-hours, #d-precipitation-prob-mean, #d-wind-speed-10m {
     display: flex;
     flex-direction: column;
+    gap: 0.5em;
   }
 
   #h-dates label, #h-temperatures label, #h-cloud-cover label, #h-precipitations label, #h-precipitation-prob label, #h-rain label, #h-snowfall label, #h-snow-depth label,
